@@ -24,17 +24,14 @@ const getAllFlowers = async () => {
   const querySnapshot = await getDocs(collection(db, 'flowers'));
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
     items.push({ ...doc.data(), id: doc.id });
   });
-  console.log(items);
   return items;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const data = await getAllFlowers();
-    console.log(data);
     return {
       props: {
         flowers: data,

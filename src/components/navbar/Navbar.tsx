@@ -29,19 +29,22 @@ import React from 'react';
 
 // profile menu component
 
-const common = [
-  {
-    label: 'Inbox',
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: 'Help',
-    icon: LifebuoyIcon,
-  },
-];
+
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const router = useRouter();
+  const common = [
+    {
+      label: 'Inbox',
+      icon: InboxArrowDownIcon,
+      cb: () => router.push('/inbox'),
+    },
+    {
+      label: 'Help',
+      icon: LifebuoyIcon,
+      cb: () => router.push('/help'),
+    },
+  ];
   const profileMenuItems = (user: boolean) =>
     !user
       ? [
@@ -56,15 +59,18 @@ function ProfileMenu() {
           {
             label: 'My Profile',
             icon: UserCircleIcon,
+            cb: () => router.push('/profile'),
           },
           {
             label: 'Edit Profile',
             icon: Cog6ToothIcon,
+            cb: () => router.push('/profile'),
           },
           ...common,
           {
             label: 'Sign Out',
             icon: PowerIcon,
+            cb: () => router.push('/'),
           },
         ];
 

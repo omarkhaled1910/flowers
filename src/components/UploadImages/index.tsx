@@ -36,7 +36,6 @@ function UploadImages({ files, setFiles, onChange }: any) {
       files.forEach((file: any) => URL.revokeObjectURL(file?.preview));
   }, [files]);
 
-  console.log(files);
 
   return (
     <section className='border-blue container mt-5 cursor-pointer border p-10'>

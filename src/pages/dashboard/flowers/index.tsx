@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   deleteFlower,
   getAllFlowers,
@@ -8,15 +9,15 @@ import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react';
 
 const limit = 10;
-const getLastVisible = (items: []) => {
+const getLastVisible = (items: []): { name: string } => {
   const numberOfPages = items.length;
   let lastVisible;
-  items.map((item) => {
+  items.map((item: any) => {
     if (item.page === numberOfPages) {
       lastVisible = item?.rows?.[item?.rows?.length - 1];
     }
   });
-  return lastVisible;
+  return lastVisible || { name: '' };
 };
 const AllFlowers = ({ flowers, numberOfPages }: any) => {
   const [page, setPage] = useState(1);
@@ -24,7 +25,7 @@ const AllFlowers = ({ flowers, numberOfPages }: any) => {
 
   useEffect(() => {
     if (pageData.find((item) => item.page === page)) return;
-    getAllFlowers(limit, getLastVisible(pageData)?.name).then((items) =>
+    getAllFlowers(limit, getLastVisible(pageData as any)?.name).then((items) =>
       setPageData([...pageData, { page: page, rows: items }])
     );
   }, [page]);
@@ -35,10 +36,19 @@ const AllFlowers = ({ flowers, numberOfPages }: any) => {
       ...currentPage,
       rows: currentPage?.rows.filter((row: any) => row.id !== id),
     };
-    setPageData((old: { rows: unknown; page: number }) => [
-      ...old.filter((row: unknown) => row.page !== page),
+    const newPageData: {
+      rows: any;
+      page?: number;
+    }[] = [
+      ...pageData.filter((row: any) => row.page !== page),
       newCurrentPageData,
-    ]);
+    ];
+    setPageData(
+      newPageData as {
+        rows: any;
+        page: number;
+      }[]
+    );
     if (!newCurrentPageData.rows.length && page !== 1) {
       setPage((old) => --old);
     }
@@ -64,8 +74,9 @@ export default AllFlowers;
 export const getServerSideProps: GetServerSideProps = async (req) => {
   try {
     const data = await getAllFlowers(limit);
+
     const numberOfPages = await getFlowersCount();
-    console.log(data, numberOfPages);
+
     return {
       props: {
         flowers: data,

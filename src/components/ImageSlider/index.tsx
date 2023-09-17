@@ -3,7 +3,6 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Carousel } from '@material-tailwind/react';
 
 export default function ImageSlider({ images }: { images: string[] }) {
-  console.log(images);
   return (
     <Carousel
       prevArrow={({ loop, handlePrev, firstIndex }) => {

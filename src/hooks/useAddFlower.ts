@@ -29,7 +29,6 @@ export const useAddFlower = (flowerId?: string, flower?: any) => {
     },
     [flowerId]
   );
-  // console.log(files, items);
 
   return {
     handleDrag,

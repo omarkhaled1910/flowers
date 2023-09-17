@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   arrayRemove,
   collection,
@@ -19,7 +20,7 @@ const storage = getStorage();
 export const getSingleFlower = async (id = '') => {
   const docRef = doc(db, 'flowers', id);
   const docSnap = await getDoc(docRef);
-  console.log(docSnap);
+
   return docSnap.data();
 };
 
@@ -46,28 +47,17 @@ export const getAllFlowers = async (limitNumber: number, start?: any) => {
       // doc.data() is never undefined for query doc snapshots
       items.push({ ...doc.data(), id: doc.id });
     });
-    console.log(items, start);
 
     return items;
   } catch (error) {
-    console.log(error, 'error');
+    console.error(error);
   }
 
   return null;
-  // querySnapshot.forEach((doc) => {
-  //   // doc.data() is never undefined for query doc snapshots
-  //   console.log(doc.id, ' => ', doc.data());
-  //   items.push({ ...doc.data(), id: doc.id });
-  // });
-  // console.log(items);
-  // return items;
 };
 
 export const deleteFlower = async (id: string) => {
-  console.log('deletflower');
-
-  const res = await deleteDoc(doc(collection(db, 'flowers'), id));
-  console.log('deletflower', res);
+  await deleteDoc(doc(collection(db, 'flowers'), id));
 };
 
 export const deleteFlowerImage = async (src: string, flowerId: string) => {
@@ -77,16 +67,13 @@ export const deleteFlowerImage = async (src: string, flowerId: string) => {
   const pathToFile = decodeURIComponent(urlParts[0].split('/o/')[1]);
 
   // Now, you have the path to the file
-  console.log('Path to file:', pathToFile);
 
   const desertRef = ref(storage, pathToFile);
   // Delete the file
   deleteObject(desertRef)
     .then(() => {
       const flowerRef = doc(collection(db, 'flowers'), flowerId);
-      updateDoc(flowerRef, { images: arrayRemove(src) }),
-        // File deleted successfully
-        console.log('it was sucess');
+      updateDoc(flowerRef, { images: arrayRemove(src) });
     })
     .catch((error) => {
       console.log(error);

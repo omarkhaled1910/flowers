@@ -9,7 +9,7 @@ import {
   Button,
 } from '@material-tailwind/react';
 
-export function Register() {
+export default function Register() {
   return (
     <Card className='w-96'>
       <CardHeader

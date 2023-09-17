@@ -60,10 +60,7 @@ const colourStyles = {
 type NewType = any;
 
 export default forwardRef(
-  (
-    { options, label, ...rest }: Partial<HTMLSelectElement> & { label: string },
-    ref
-  ) => (
+  ({ options, label, ...rest }: any & { label: string }, ref) => (
     <>
       <label className='my-2 '>{label}</label>
       <Select
