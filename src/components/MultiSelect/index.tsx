@@ -2,7 +2,7 @@
 import chroma from 'chroma-js';
 import React, { forwardRef } from 'react';
 
-import Select from 'react-select';
+import Select, { GroupBase, OptionsOrGroups } from 'react-select';
 
 const colourStyles = {
   control: (styles: any) => ({ ...styles, backgroundColor: 'white' }),
@@ -57,20 +57,24 @@ const colourStyles = {
   }),
 };
 
+type NewType = any;
+
 export default forwardRef(
-  ({
-    options = [],
-    label,
-    ...rest
-  }: Partial<HTMLSelectElement> & { label: string }) => (
+  (
+    { options, label, ...rest }: Partial<HTMLSelectElement> & { label: string },
+    ref
+  ) => (
     <>
       <label className='my-2 '>{label}</label>
       <Select
         closeMenuOnSelect={false}
         isMulti
-        options={options as HTMLOptionsCollection}
+        options={
+          options as unknown as OptionsOrGroups<string, GroupBase<string>>
+        }
         {...rest}
         styles={options?.[0]?.color && colourStyles}
+        ref={ref as React.Ref<NewType>}
       />
     </>
   )
