@@ -14,6 +14,7 @@ const defaultValues = {
   category: [],
   colors: [],
   inStock: false,
+  price: null,
 };
 const CreateFlower = () => {
   const methods = useForm({

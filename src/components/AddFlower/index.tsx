@@ -83,20 +83,36 @@ const AddFlower = ({ id, files }: { id?: string; files?: any }) => {
             rules={{ required: true }}
           />
         </div>
-
-        <div className='my-3 w-full'>
-          <Controller
-            render={({ field, fieldState: { error }, formState }) => (
-              <Checkbox
-                {...field}
-                checked={field.value || false}
-                inputRef={field.ref}
-                label='in stock'
-              />
-            )}
-            name='inStock'
-          />
+        <div className='my-5 flex  w-full items-center justify-between gap-10 '>
+          <div className='w-full  px-3 md:w-1/2'>
+            <Controller
+              render={({ field, fieldState: { error }, formState }) => (
+                <InputWithRef
+                  error={!!error}
+                  label='Price'
+                  placeholder='2000'
+                  {...field}
+                />
+              )}
+              name='price'
+              rules={{ required: true }}
+            />
+          </div>
+          <div className=' w-full'>
+            <Controller
+              render={({ field, fieldState: { error }, formState }) => (
+                <Checkbox
+                  {...field}
+                  checked={field.value || false}
+                  inputRef={field.ref}
+                  label='in stock'
+                />
+              )}
+              name='inStock'
+            />
+          </div>
         </div>
+
         <div className='my-3 w-full'>
           <Controller
             render={({ field, fieldState: { error }, formState }) => (
