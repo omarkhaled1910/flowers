@@ -84,7 +84,6 @@ export const getServerSideProps: GetServerSideProps = async (req) => {
       },
     };
   } catch (error) {
-    console.log(error);
     return {
       props: {
         flower: null,
