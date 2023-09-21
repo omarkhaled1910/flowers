@@ -26,9 +26,8 @@ import {
 } from '@material-tailwind/react';
 import { useRouter } from 'next/router';
 import React from 'react';
-
+import logo from '@/assets/logo.png';
 // profile menu component
-
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -276,7 +275,13 @@ export function ComplexNavbar() {
           href='/'
           className='mr-4 ml-2 cursor-pointer py-1.5 font-medium'
         >
-          ASSIL FLOWER
+          <Avatar
+            className='mx-2'
+            size='sm'
+            alt='tania andrew'
+            src={logo.src}
+          />{' '}
+          ASSIL FLOWERS
         </Typography>
         <div className='absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block'>
           <NavList />

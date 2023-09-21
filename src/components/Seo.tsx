@@ -1,21 +1,21 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
+import logo from '@/assets/logo.png';
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Next.js + Tailwind CSS + TypeScript Starter',
-  siteName: 'Next.js + Tailwind CSS + TypeScript Starter',
+  title: 'Assil Flowers',
+  siteName: 'Assil Flowers',
   description:
     'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  // url: 'https://tsnext-tw.thcl.dev',
   type: 'website',
   robots: 'follow, index',
   /**
    * No need to be filled, will be populated with openGraph function
    * If you wish to use a normal image, just specify the path below
    */
-  image: 'https://tsnext-tw.thcl.dev/images/large-og.png',
+  image: logo.src,
 };
 
 type SeoProps = {
@@ -46,23 +46,12 @@ export default function Seo(props: SeoProps) {
   return (
     <Head>
       <title>{meta.title}</title>
+      <link rel='icon' href={logo.src} />
+
       <meta name='robots' content={meta.robots} />
       <meta content={meta.description} name='description' />
-      <meta property='og:url' content={`${meta.url}${router.asPath}`} />
-      <link rel='canonical' href={`${meta.url}${router.asPath}`} />
-      {/* Open Graph */}
-      <meta property='og:type' content={meta.type} />
-      <meta property='og:site_name' content={meta.siteName} />
-      <meta property='og:description' content={meta.description} />
-      <meta property='og:title' content={meta.title} />
-      <meta name='image' property='og:image' content={meta.image} />
-      {/* Twitter */}
-      <meta name='twitter:card' content='summary_large_image' />
-      {/* // !STARTERCONF Remove or change to your handle */}
-      {/* <meta name='twitter:site' content='@th_clarence' /> */}
-      <meta name='twitter:title' content={meta.title} />
-      <meta name='twitter:description' content={meta.description} />
-      <meta name='twitter:image' content={meta.image} />
+      <meta content={meta.image} name='image' />
+
       {meta.date && (
         <>
           <meta property='article:published_time' content={meta.date} />
@@ -81,11 +70,11 @@ export default function Seo(props: SeoProps) {
       )}
 
       {/* Favicons */}
-      {favicons.map((linkProps) => (
+      {/* {favicons.map((linkProps) => (
         <link key={linkProps.href} {...linkProps} />
-      ))}
+      ))} */}
       <meta name='msapplication-TileColor' content='#ffffff' />
-      <meta name='msapplication-config' content='/favicon/browserconfig.xml' />
+      <meta name='msapplication-config' content={logo.src} />
       <meta name='theme-color' content='#ffffff' />
     </Head>
   );
