@@ -17,13 +17,7 @@ function UploadImages({ files, setFiles, onChange }: any) {
       setFiles((old: any) => [...old, ...acceptedFiles]);
     },
   });
-  // const thumbs = files.map((file: any) => (
-  //   <div key={file?.name}>
-  //     <div>
-  //       <NextImage src={file?.preview} alt='' width={90} height={90} />
-  //     </div>
-  //   </div>
-  // ));
+
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks

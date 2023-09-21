@@ -26,7 +26,7 @@ const AddFlower = ({ id, files }: { id?: string; files?: any }) => {
         .then(async () => {
           const newFlower = {
             ...values,
-            images: [...images],
+            images: values.images ? [...images, ...values.images] : [...images],
           };
           id
             ? await updateFlower(newFlower, id)

@@ -27,7 +27,7 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ['Name', 'Status', 'Width', 'height', 'actions'];
+const TABLE_HEAD = ['Name', 'Status', 'price', 'Width', 'height', 'actions'];
 
 const TABLE_ROWS = [
   {
@@ -148,8 +148,11 @@ export default function Table({
           <tbody>
             {Array.isArray(rows) &&
               rows?.map(
-                ({ images, name, id, width, height, inStock, date }, index) => {
-                  const isLast = index === TABLE_ROWS.length - 1;
+                (
+                  { images, name, id, width, height, inStock, price },
+                  index
+                ) => {
+                  const isLast = index === rows.length - 1;
                   const classes = isLast
                     ? 'p-4'
                     : 'p-4 border-b border-blue-gray-50';
@@ -200,7 +203,18 @@ export default function Table({
                             color='blue-gray'
                             className='font-normal'
                           >
-                            {height}
+                            {price} $
+                          </Typography>
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <div className='flex flex-col'>
+                          <Typography
+                            variant='small'
+                            color='blue-gray'
+                            className='font-normal'
+                          >
+                            {height} cm
                           </Typography>
                         </div>
                       </td>
@@ -211,7 +225,7 @@ export default function Table({
                           color='blue-gray'
                           className='font-normal'
                         >
-                          {width}
+                          {width} cm
                         </Typography>
                       </td>
                       <td className={`flex ${classes}`}>

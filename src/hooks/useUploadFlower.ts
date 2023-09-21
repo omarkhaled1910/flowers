@@ -12,6 +12,7 @@ export const useFlower = () => {
   const updateFlower = async (flower: any, id: string) => {
     const flowerRef = doc(collection(db, 'flowers'), id);
     // Set the 'capital' field of the city
+    console.log(flower);
     await updateDoc(flowerRef, { ...flower, inStock: flower.inStock || false });
 
     push(`/dashboard/flowers`);
