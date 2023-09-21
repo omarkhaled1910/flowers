@@ -84,6 +84,7 @@ export default function Table({
   rows = [],
   handleEdit,
   handleDelete,
+  rowClick,
 }: any) {
   return (
     <Card className='h-full w-full'>
@@ -156,7 +157,11 @@ export default function Table({
                   return (
                     <tr key={name}>
                       <td className={classes}>
-                        <div className='flex items-center gap-3'>
+                        <div
+                          onClick={() => rowClick?.(id)}
+                          className='flex items-center gap-3'
+                          style={{ cursor: rowClick && 'pointer' }}
+                        >
                           <Avatar
                             src={images?.[0] || ''}
                             alt={name}

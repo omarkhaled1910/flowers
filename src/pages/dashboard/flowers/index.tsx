@@ -6,6 +6,7 @@ import {
 } from '@/Requests/flowers';
 import Table from '@/components/Table';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 const limit = 10;
@@ -22,7 +23,7 @@ const getLastVisible = (items: []): { name: string } => {
 const AllFlowers = ({ flowers, numberOfPages }: any) => {
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState([{ page: 1, rows: flowers }]);
-
+  const { push } = useRouter();
   useEffect(() => {
     if (pageData.find((item) => item.page === page)) return;
     getAllFlowers(limit, getLastVisible(pageData as any)?.name).then((items) =>
@@ -63,6 +64,7 @@ const AllFlowers = ({ flowers, numberOfPages }: any) => {
         rows={pageData.find((item) => item.page === page)?.rows}
         totalPages={numberOfPages}
         handleEdit={(id: string) => `/dashboard/${id}`}
+        rowClick={(id: string) => push(`/flower/${id}`)}
         handleDelete={handleDeleteFlower}
       />
     </div>

@@ -23,20 +23,13 @@ const FlowerCard = ({ src, onHover, isHovered, id, flower }: any) => {
       />{' '}
       {isHovered && (
         <div className='absolute bottom-0 flex h-auto w-full justify-between gap-2 rounded-sm bg-black p-3 opacity-70 shadow-md  '>
-          {/* <div>
-            <div className=' text-blue-700 !opacity-100'>
-              height: {flower.height}
-            </div>
-            <div className=' text-blue-700 !opacity-100'>
-              width: {flower.width}
-            </div>
-          </div>
-          <div>
-            <div className=' text-blue-700 !opacity-100'>views:188</div>
-            <div className=' text-blue-700 !opacity-100'>likes:18</div>
-          </div> */}
-          <div style={ubt.style} className=' text-2xl text-white'>
-            {flower?.name}
+          <div
+            style={ubt.style}
+            className='flex w-full justify-between text-2xl text-white '
+          >
+            <div> {flower?.name}</div>
+
+            <div>{flower?.price || 200} $</div>
           </div>
         </div>
       )}

@@ -1,27 +1,22 @@
 import { ArrowUpOnSquareStackIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 
 import { useFormContext } from 'react-hook-form';
 function UploadImages({ files, setFiles, onChange }: any) {
   const { setValue } = useFormContext();
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { accept: ['image/*'] },
+    accept: 'image/*' as unknown as Accept,
     onDrop: (acceptedFiles) => {
-      setFiles((old: any) => [
+      onChange((old: any) => [
         ...old,
-        ...acceptedFiles.map((file) => {
-          onChange((old: any) => [...old, URL.createObjectURL(file)]);
-          return {
-            ...file,
-            preview: URL.createObjectURL(file),
-          };
-        }),
+        ...acceptedFiles.map((file) => URL.createObjectURL(file)),
       ]);
+
+      setFiles((old: any) => [...old, ...acceptedFiles]);
     },
   });
-
   // const thumbs = files.map((file: any) => (
   //   <div key={file?.name}>
   //     <div>
@@ -35,7 +30,6 @@ function UploadImages({ files, setFiles, onChange }: any) {
     return () =>
       files.forEach((file: any) => URL.revokeObjectURL(file?.preview));
   }, [files]);
-
 
   return (
     <section className='border-blue container mt-5 cursor-pointer border p-10'>

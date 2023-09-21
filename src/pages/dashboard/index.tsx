@@ -23,6 +23,7 @@ const CreateFlower = () => {
   const { handleDrag, items, files, setFiles, setItems, handleDeleteImage } =
     useAddFlower();
 
+
   return (
     <div className='flex gap-10'>
       <FormProvider {...methods}>

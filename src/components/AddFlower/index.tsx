@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@/components/buttons/Button';
 
@@ -9,29 +9,39 @@ import InputWithRef from '@/components/Input';
 import { Checkbox } from '@material-tailwind/react';
 import MultiSelect from '@/components/MultiSelect';
 import { categories, colourOptions, genders } from '@/constants';
+import Loader from '@/components/Loader/Loader';
 
 const AddFlower = ({ id, files }: { id?: string; files?: any }) => {
   const { createFlower, updateFlower } = useFlower();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmit = async (values: any) => {
     if (values) {
+      setIsSubmitting(true);
       const images: any = [];
       Promise.all(
         files?.map((file: Blob) =>
           uploadImageToStorage(file, (url) => images.push(url))
         )
-      ).then(async () => {
-        const newFlower = {
-          ...values,
-          images: [...images],
-        };
-        id ? await updateFlower(newFlower, id) : await createFlower(newFlower);
-      });
+      )
+        .then(async () => {
+          const newFlower = {
+            ...values,
+            images: [...images],
+          };
+          id
+            ? await updateFlower(newFlower, id)
+            : await createFlower(newFlower);
+        })
+        .finally(() => setIsSubmitting(false));
     }
   };
-  const { handleSubmit } = useFormContext();
+  const {
+    handleSubmit,
+    formState: { isValidating, isLoading },
+  } = useFormContext();
   return (
     <form className='w-full max-w-lg'>
+      {isSubmitting && <Loader overlay />}
       <div className='-mx-3 mb-6 flex flex-wrap'>
         <div className='w-full px-3'>
           <Controller
