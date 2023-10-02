@@ -5,6 +5,7 @@ import * as React from 'react';
 import FlowersContainer from '@/components/flowersContainer/FlowersContainer';
 
 import { db } from '../../firebase';
+import Stats from '@/components/Stats';
 
 export default function HomePage({ flowers }: { flowers: any[] }) {
   return (
@@ -14,6 +15,7 @@ export default function HomePage({ flowers }: { flowers: any[] }) {
           Welcome ! Check Our Latest Collection
         </h2>
         <FlowersContainer flowers={flowers} />
+        <Stats />
       </section>
     </main>
   );
